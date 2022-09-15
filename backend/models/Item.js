@@ -1,25 +1,26 @@
-var mongoose = require("mongoose");
-var uniqueValidator = require("mongoose-unique-validator");
-var slug = require("slug");
-var User = mongoose.model("User");
+const mongoose = require("mongoose");
+const uniqueValidator = require("mongoose-unique-validator");
+const slug = require("slug");
 
-var ItemSchema = new mongoose.Schema(
+const User = mongoose.model("User");
+
+const ItemSchema = new mongoose.Schema(
   {
     slug: { type: String, lowercase: true, unique: true },
     title: String,
     description: String,
-    image: String,
+    image: { type: String, default: "frontendpublicplaceholder.png" },
     favoritesCount: { type: Number, default: 0 },
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
     tagList: [{ type: String }],
-    seller: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
+    seller: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
   { timestamps: true }
 );
 
 ItemSchema.plugin(uniqueValidator, { message: "is already taken" });
 
-ItemSchema.pre("validate", function(next) {
+ItemSchema.pre("validate", function (next) {
   if (!this.slug) {
     this.slugify();
   }
@@ -27,24 +28,23 @@ ItemSchema.pre("validate", function(next) {
   next();
 });
 
-ItemSchema.methods.slugify = function() {
-  this.slug =
-    slug(this.title) +
-    "-" +
-    ((Math.random() * Math.pow(36, 6)) | 0).toString(36);
+ItemSchema.methods.slugify = function () {
+  this.slug = `${slug(this.title)}-${((Math.random() * 36 ** 6) | 0).toString(
+    36
+  )}`;
 };
 
-ItemSchema.methods.updateFavoriteCount = function() {
-  var item = this;
+ItemSchema.methods.updateFavoriteCount = function () {
+  const item = this;
 
-  return User.count({ favorites: { $in: [item._id] } }).then(function(count) {
+  return User.count({ favorites: { $in: [item._id] } }).then((count) => {
     item.favoritesCount = count;
 
     return item.save();
   });
 };
 
-ItemSchema.methods.toJSONFor = function(user) {
+ItemSchema.methods.toJSONFor = function (user) {
   return {
     slug: this.slug,
     title: this.title,
@@ -55,7 +55,7 @@ ItemSchema.methods.toJSONFor = function(user) {
     tagList: this.tagList,
     favorited: user ? user.isFavorite(this._id) : false,
     favoritesCount: this.favoritesCount,
-    seller: this.seller.toProfileJSONFor(user)
+    seller: this.seller.toProfileJSONFor(user),
   };
 };
 
