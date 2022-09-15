@@ -28,9 +28,6 @@ const ItemPreview = (props) => {
       props.favorite(item.slug);
     }
 
-    if(!item.image) {
-      item.image = "frontend\public\placeholder.png"
-    }
   };
 
   return (
