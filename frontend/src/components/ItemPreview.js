@@ -19,7 +19,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 const ItemPreview = (props) => {
   const item = props.item;
-
   const placeHolderImagePath = "/placeholder.png";
 
   const handleClick = (ev) => {
