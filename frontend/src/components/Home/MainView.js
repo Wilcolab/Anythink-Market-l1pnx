@@ -38,7 +38,7 @@ const GlobalFeedTab = (props) => {
         className={props.tab === "all" ? "nav-link active" : "nav-link"}
         onClick={clickHandler}
       >
-        Global Feed
+        Global Feed 
       </button>
     </li>
   );
