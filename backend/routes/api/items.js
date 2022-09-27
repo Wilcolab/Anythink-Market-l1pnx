@@ -75,6 +75,7 @@ router.get("/", auth.optional, function(req, res, next) {
         Item.find(query)
           .limit(Number(limit))
           .skip(Number(offset))
+          .title(String(title))
           .sort({ createdAt: "desc" })
           .exec(),
         Item.count(query).exec(),
@@ -103,6 +104,10 @@ router.get("/feed", auth.required, function(req, res, next) {
 
   if (typeof req.query.limit !== "undefined") {
     limit = req.query.limit;
+  }
+
+  if (typeof req.query.title !== "undefined") {
+    title = req.query.title;
   }
 
   if (typeof req.query.offset !== "undefined") {
