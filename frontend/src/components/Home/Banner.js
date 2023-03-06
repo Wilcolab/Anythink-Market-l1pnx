@@ -8,7 +8,11 @@ const Banner = () => {
         <img src={logo} alt="banner" />
         <div>
           <span id="get-part">A place to get</span>
-            <input type= "text" id="search-box" placeholder="What is it that you truly desire?"></input>
+          <input
+            type="text"
+            id="search-box"
+            placeholder="What is it that you truly desire?"
+          ></input>
           <span> the cool stuff.</span>
         </div>
       </div>
