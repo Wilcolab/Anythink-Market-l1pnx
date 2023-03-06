@@ -1,7 +1,6 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import logo from "../../imgs/logo.png";
 import agent from "../../agent";
-
 
 const Banner = (props) => {
   const [searchVisible, setSearchVisible] = useState(false);
@@ -27,12 +26,12 @@ const Banner = (props) => {
             get
           </span>
           {searchVisible && (
-          <input
-            type="text"
-            id="search-box"
-            placeholder="What is it that you truly desire?"
-            onChange={onSearchChange}
-          ></input>
+            <input
+              type="text"
+              id="search-box"
+              placeholder="What is it that you truly desire?"
+              onChange={onSearchChange}
+            ></input>
           )}
           <span> the cool stuff.</span>
         </div>
