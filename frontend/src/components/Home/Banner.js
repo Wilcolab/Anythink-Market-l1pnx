@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import logo from "../../imgs/logo.png";
 import agent from "../../agent";
-import { useState } from "react";
+
 
 const Banner = (props) => {
   const [searchVisible, setSearchVisible] = useState(false);
