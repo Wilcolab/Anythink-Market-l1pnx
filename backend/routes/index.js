@@ -1,5 +1,13 @@
-var router = require("express").Router();
+var router = require('express').Router();
 
-router.use("/api", require("./api"));
+router.get('/', (req, res, next) => {
+  res.send("Anythink backend is up.");
+});
+
+router.get('/health', (req, res, next) => {
+  res.sendStatus("200");
+})
+
+router.use('/api', require('./api'));
 
 module.exports = router;
